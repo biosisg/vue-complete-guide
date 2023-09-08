@@ -1,47 +1,27 @@
 const app = Vue.createApp({
     data() {
         return {
-            counter: 10,
-            name: '',
-            confirmedName: ''
+            boxASelected: false,
+            boxBSelected: false,
+            boxCSelected: false,
         };
     },
-    watch: {
-        counter(value) {
-            if (value > 50) {
-                this.counter = 0;
-            }
-        }
-    },
     computed: {
-        fullname() {
-            if (this.name == '') {
-                return '';
-            }
-
-            return this.name + ' ' + 'Schwarzmüller';
+        boxAClasses() {
+            return { active: this.boxASelected };
         }
     },
     methods: {
-        add(num) {
-            this.counter = this.counter + num;
+        boxSelected(box) {
+            if (box === 'A') {
+                this.boxASelected = !this.boxASelected;
+            } else if (box === 'B') {
+                this.boxBSelected = !this.boxBSelected;
+            } else if (box === 'C') {
+                this.boxCSelected = !this.boxCSelected;
+            }
         },
-        reduce(num) {
-            this.counter = this.counter - num;
-        },
-        setName(event) {  // setName(event, lastName)
-            this.name = event.target.value;
-        },
-        submitForm() {
-            alert('Submitted!');
-        },
-        confirmInput() {
-            this.confirmedName = this.name;
-        },
-        resetInput() {
-            this.name = '';
-        }
-    }
+    },
 });
 
-app.mount('#events');
+app.mount('#styling');
