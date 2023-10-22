@@ -54,6 +54,7 @@
             console.log(to, from);
             // this.loadTeamMembers(to.params.teamId);
             next();
+        &
         },
         watch: {
             /*$route(newRoute) {
