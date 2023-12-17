@@ -1,6 +1,7 @@
 export default {
     async registerCoach(context, data) {
         const userId = context.rootGetters.userId;
+        const token = context.rootGetters.token;
         const coachData = {
             firstName: data.first,
             lastName: data.last,
@@ -9,14 +10,17 @@ export default {
             areas: data.areas
         };
 
-        const response = await fetch(`https://vue-http-demo-e6aea-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`, {
+        console.log(token);
+
+        const response = await fetch(`https://vue-http-demo-e6aea-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json?auth=${token}`, {
             method: 'PUT',
             body: JSON.stringify(coachData)
         });
-        // const responseData = await response.json();
+        const responseData = await response.json();
 
         if (!response.ok) {
-            // error ...
+            const error = responseData.message || 'Coach not registered.';
+            throw error;
         }
         context.commit('registerCoach', {
             ...coachData,
